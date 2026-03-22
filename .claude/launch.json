@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "wedding-site",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["-e", "const h=require('http'),f=require('fs'),p=require('path');const m={'.html':'text/html','.css':'text/css','.js':'application/javascript','.jpeg':'image/jpeg','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.mp3':'audio/mpeg','.woff2':'font/woff2'};h.createServer((q,r)=>{let u=q.url.split('?')[0];if(u==='/')u='/index.html';let fp=p.join('/Users/akil-18123/Documents/Projects/jaiwedding',decodeURIComponent(u));f.readFile(fp,(e,d)=>{if(e){r.writeHead(404);r.end('Not found');return}r.writeHead(200,{'Content-Type':m[p.extname(fp).toLowerCase()]||'application/octet-stream'});r.end(d)})}).listen(8085,()=>console.log('Serving on http://localhost:8085'))"],
+      "port": 8085
+    }
+  ]
+}

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(python3 -c \"\nwith open\\('index.html', 'r'\\) as f:\n    content = f.read\\(\\)\nfor tag in ['div', 'section', 'html', 'body', 'nav']:\n    opens = content.count\\(f'<{tag}'\\) \n    closes = content.count\\(f'</{tag}>'\\)\n    print\\(f'{tag}: opens={opens}, closes={closes}'\\)\n\")",
       "Bash(open /Users/akil-18123/Documents/Projects/jaiwedding/index.html)",
-      "Bash(python3 -c \"\nwith open\\('index.html','r'\\) as f: html=f.read\\(\\)\nopens=html.count\\('<div'\\)\ncloses=html.count\\('</div>'\\)\nprint\\(f'<div>: {opens}, </div>: {closes}, balanced: {opens==closes}'\\)\nopens=html.count\\('<section'\\)\ncloses=html.count\\('</section>'\\)\nprint\\(f'<section>: {opens}, </section>: {closes}, balanced: {opens==closes}'\\)\nprint\\(f'<script>: {html.count\\(\\\\\"<script\\\\\"\\)}, </script>: {html.count\\(\\\\\"</script>\\\\\"\\)}'\\)\nprint\\(f'Total size: {len\\(html\\)} chars, {len\\(html.splitlines\\(\\)\\)} lines'\\)\n\")"
+      "Bash(python3 -c \"\nwith open\\('index.html','r'\\) as f: html=f.read\\(\\)\nopens=html.count\\('<div'\\)\ncloses=html.count\\('</div>'\\)\nprint\\(f'<div>: {opens}, </div>: {closes}, balanced: {opens==closes}'\\)\nopens=html.count\\('<section'\\)\ncloses=html.count\\('</section>'\\)\nprint\\(f'<section>: {opens}, </section>: {closes}, balanced: {opens==closes}'\\)\nprint\\(f'<script>: {html.count\\(\\\\\"<script\\\\\"\\)}, </script>: {html.count\\(\\\\\"</script>\\\\\"\\)}'\\)\nprint\\(f'Total size: {len\\(html\\)} chars, {len\\(html.splitlines\\(\\)\\)} lines'\\)\n\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(lsof:*)"
     ]
   }
 }

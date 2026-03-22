@@ -16,8 +16,8 @@
   --dark:#0A0820;--text-dark:#1C1C2A;--text-mid:#4A4860;
   --text-light:#E0D8CC;--brass:#C5962C;
 }
-html{scroll-behavior:smooth}
-body{font-family:'Spectral','Noto Serif Tamil',Georgia,serif;background:var(--midnight);color:var(--text-dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{overflow:hidden;height:100vh;height:100dvh}
+body{font-family:'Spectral','Noto Serif Tamil',Georgia,serif;background:var(--midnight);color:var(--text-dark);overflow:hidden;height:100vh;height:100dvh;-webkit-font-smoothing:antialiased}
 body[data-lang="en"]{font-family:'Spectral',Georgia,serif}
 
 /* ===== CURTAIN ===== */
@@ -256,8 +256,10 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
 .couple-name{font-family:'Noto Serif Tamil','Playfair Display',serif;font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--indigo);margin-bottom:4px}
 .couple-role{font-size:.82rem;color:var(--saffron-dim);font-style:italic;margin-bottom:8px}
 .couple-desc{font-size:.9rem;color:var(--text-mid);line-height:1.65}
+.couple-card{display:flex;flex-direction:column;align-items:center}
 .couple-parent{font-family:'Noto Serif Tamil',serif;font-size:.78rem;color:var(--text-mid);line-height:1.6;
-  margin-top:10px;padding-top:10px;border-top:1px solid rgba(232,148,58,.12);font-style:italic}
+  order:-1;margin-top:0;margin-bottom:14px;padding-top:0;padding-bottom:10px;
+  border-top:none;border-bottom:1px solid rgba(232,148,58,.12);font-style:italic}
 .couple-amp{font-family:'Playfair Display',serif;font-size:2rem;font-style:italic;color:var(--rose)}
 
 /* ===== FAMILY ===== */
@@ -335,6 +337,11 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
   text-decoration:none;padding:8px 20px;border:1px solid rgba(232,148,58,.18);border-radius:3px;
   background:rgba(232,148,58,.03);transition:all .3s;letter-spacing:.04em}
 .ven-phone:hover{background:rgba(232,148,58,.1);border-color:var(--saffron);transform:translateY(-2px)}
+.ven-map{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 22px;
+  background:var(--saffron);color:var(--dark);font-family:'Noto Serif Tamil','Spectral',serif;
+  font-size:.78rem;font-weight:600;letter-spacing:.08em;border:none;border-radius:3px;
+  cursor:pointer;text-decoration:none;transition:all .3s}
+.ven-map:hover{background:var(--saffron-light);box-shadow:0 6px 24px rgba(232,148,58,.3);transform:translateY(-2px)}
 
 /* ===== BLESSINGS ===== */
 .bless-form{max-width:460px;margin:32px auto 0}
@@ -372,9 +379,63 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
   .toran{height:45px}
 }
 @media(max-width:480px){.cd-grid{gap:7px}.cd-ring{width:62px;height:62px}.hero-lamps{gap:40px}}
+
+/* ===== STORY MODE ===== */
+.wave,.scroll-hint,.side-nav{display:none!important}
+section,.footer{position:fixed!important;inset:0;visibility:hidden;pointer-events:none;
+  z-index:10;overflow-y:auto;-webkit-overflow-scrolling:touch}
+section.active-slide,.footer.active-slide{visibility:visible;pointer-events:auto}
+section.hero{overflow:hidden}
+#countdown{padding-top:clamp(65px,11vw,120px)!important}
+.story-progress{position:fixed;top:0;left:0;right:0;display:flex;gap:3px;
+  padding:10px 8px 6px;z-index:600;
+  background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 100%)}
+.story-bar{flex:1;height:2.5px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden;cursor:pointer}
+.story-bar-fill{height:100%;width:0;background:var(--saffron);border-radius:2px;transition:width .3s ease}
+.story-bar.done .story-bar-fill{width:100%}
+.story-bar.active .story-bar-fill{width:100%}
+.lang-toggle{top:36px!important}
+/* ===== MUSIC TOGGLE ===== */
+.music-btn{position:fixed;bottom:20px;right:20px;z-index:600;width:44px;height:44px;
+  border-radius:50%;border:1px solid rgba(232,148,58,.35);cursor:pointer;
+  background:rgba(10,8,32,.7);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);transition:all .3s;opacity:0;pointer-events:none}
+.music-btn.show{opacity:1;pointer-events:auto}
+.music-btn:hover{background:rgba(232,148,58,.15);border-color:var(--saffron);transform:scale(1.1)}
+.music-btn svg{width:20px;height:20px;fill:var(--saffron)}
+.music-btn .bar{display:inline-block;width:3px;background:var(--saffron);border-radius:2px;
+  margin:0 1.5px;vertical-align:middle}
+.music-btn.playing .bar{animation:eqBar 1s ease-in-out infinite alternate}
+.music-btn .bar:nth-child(1){height:8px;animation-delay:0s}
+.music-btn .bar:nth-child(2){height:14px;animation-delay:.15s}
+.music-btn .bar:nth-child(3){height:10px;animation-delay:.3s}
+.music-btn .bar:nth-child(4){height:16px;animation-delay:.1s}
+.music-btn:not(.playing) .bar{animation:none!important;height:3px!important}
+@keyframes eqBar{0%{height:4px}100%{height:18px}}
+@media(max-width:768px){.lang-toggle{top:32px!important}.music-btn{bottom:16px;right:16px;width:40px;height:40px}}
 </style>
 </head>
 <body data-lang="ta">
+
+<!-- STORY PROGRESS BAR -->
+<div class="story-progress" id="storyProgress">
+  <div class="story-bar active"><div class="story-bar-fill"></div></div>
+  <div class="story-bar"><div class="story-bar-fill"></div></div>
+  <div class="story-bar"><div class="story-bar-fill"></div></div>
+  <div class="story-bar"><div class="story-bar-fill"></div></div>
+  <div class="story-bar"><div class="story-bar-fill"></div></div>
+  <div class="story-bar"><div class="story-bar-fill"></div></div>
+  <div class="story-bar"><div class="story-bar-fill"></div></div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop preload="auto" autoplay>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn" aria-label="Toggle music">
+  <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+</button>
 
 <!-- CURTAINS -->
 <div class="curtain curtain-l" id="cL">
@@ -614,7 +675,7 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
         <div class="family-qual" data-key="groomBro2Q">B.Tech.(CSE), Mysa Innovation, Bangalore</div>
         <div class="family-rel" data-key="groomBro2R">சகோதரன்</div>
       </div>
-      <div class="family-addr" data-key="groomAddr">📍 H-10 A, Phase-12, Old ASTC HUDCO, ஓசூர் - 635 109<br>📞 <a href="tel:+919994713491" style="color:var(--saffron-light);text-decoration:none">99947 13491</a></div>
+      <div class="family-addr" data-key="groomAddr">📍 H-10 A, Phase-12, Old ASTC HUDCO, ஓசூர் - 635 109<br>📞 99947 13491</div>
     </div>
     <div class="family-card rv rv-d3">
       <div class="family-side" data-key="brideSide">பெண் வீட்டார்</div>
@@ -631,7 +692,7 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
         <div class="family-name" data-key="brideBro">திரு. D. சபரிசெல்வன்</div>
         <div class="family-qual" data-key="brideBroQ">தாய்மாமன் - AME (Aero)</div>
       </div>
-      <div class="family-addr" data-key="brideAddr">📍 பெத்தநாயக்கன்பாளையம்<br>📞 <a href="tel:+918925700185" style="color:var(--saffron-light);text-decoration:none">89257 00185</a> · <a href="tel:+919344470299" style="color:var(--saffron-light);text-decoration:none">93444 70299</a></div>
+      <div class="family-addr" data-key="brideAddr">📍 பெத்தநாயக்கன்பாளையம்<br>📞 89257 00185 · 93444 70299</div>
     </div>
   </div>
 </section>
@@ -702,6 +763,7 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
       <div class="ven-sub" data-key="v1S">Wedding Ceremony</div>
       <div class="ven-addr" data-key="v1A">அருள்மிகு ஸ்ரீ முத்துமலை முருகன்<br>தியான மண்டபம்<br>ஏத்தாப்பூர்</div>
       <div class="ven-time" data-key="v1Tm">அதிகாலை 4:30 — 6:00 மணி (பிரம்ம முகூர்த்தம்)</div>
+      <a class="ven-map" href="https://maps.google.com/?q=Arulmigu+Sri+Muthumalai+Murugan+Dhyana+Mandapam+Ethapur" target="_blank" rel="noopener">📍 <span data-key="mapBtn1">வழிகாட்டி</span></a>
     </div>
     <div class="ven-card rangoli-card rv rv-d3">
       <span class="ven-ic">🎪</span>
@@ -709,34 +771,16 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
       <div class="ven-sub" data-key="v2S">Grand Reception</div>
       <div class="ven-addr" data-key="v2A">ஸ்ரீ பிச்சமுத்து நாயக்கர்<br>திருமண மண்டபம்<br>பெத்தநாயக்கன்பாளையம்</div>
       <div class="ven-time" data-key="v2Tm">காலை 11:00 — மதியம் 2:00 மணி</div>
+      <a class="ven-map" href="https://maps.google.com/?q=Sri+Pichamuthu+Nayakkar+Thirumana+Mandapam+Pethanayakanpalayam" target="_blank" rel="noopener">📍 <span data-key="mapBtn2">வழிகாட்டி</span></a>
     </div>
   </div>
   <div class="ven-contact rv rv-d3">
     <div class="ven-contact-title" data-key="contactTitle">தொடர்புக்கு</div>
     <div class="ven-contact-nums">
-      <a href="tel:+919994713491" class="ven-phone">📞 R. சிவப்பிரகாசம் — 99947 13491</a>
-      <a href="tel:+918925700185" class="ven-phone">📞 A.P. ராம்மூர்த்தி — 89257 00185</a>
-      <a href="tel:+919344470299" class="ven-phone">📞 93444 70299</a>
+      <span class="ven-phone">📞 R. சிவப்பிரகாசம் — 99947 13491</span>
+      <span class="ven-phone">📞 A.P. ராம்மூர்த்தி — 89257 00185</span>
+      <span class="ven-phone">📞 93444 70299</span>
     </div>
-  </div>
-</section>
-
-<div class="wave wave-ltd"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,30 C480,90 960,0 1440,50 L1440,100 L0,100Z" fill="#121033"/></svg></div>
-
-<!-- BLESSINGS -->
-<section class="sec sec-dark" id="blessings">
-  <div class="sec-inner">
-    <div class="sec-lbl rv" data-key="blLabel">உங்கள் அன்பைப் பகிருங்கள்</div>
-    <h2 class="sec-ttl rv rv-d1" data-key="blTitle">உங்கள் வாழ்த்துகளை அனுப்புங்கள்</h2>
-    <p class="sec-body rv rv-d2" data-key="blBody" style="max-width:440px;margin:0 auto">உங்கள் வருகையே மிகப்பெரிய பரிசு. புதிய பயணத்தைத் தொடங்கும் தம்பதியருக்கு உங்கள் வாழ்த்துகளை தெரிவியுங்கள்.</p>
-    <form class="bless-form rv rv-d3" onsubmit="handleBless(event)">
-      <div class="fg"><label class="fl" for="bn" data-key="fName">உங்கள் பெயர்</label>
-        <input class="fi" type="text" id="bn" data-key-ph="fNamePh" placeholder="உங்கள் பெயரை உள்ளிடுங்கள்" required></div>
-      <div class="fg"><label class="fl" for="bm" data-key="fMsg">உங்கள் வாழ்த்துகள்</label>
-        <textarea class="ft" id="bm" data-key-ph="fMsgPh" placeholder="உங்கள் வாழ்த்துகளை எழுதுங்கள்..." required></textarea></div>
-      <button class="fbtn" type="submit" data-key="fBtn">வாழ்த்துகளை அனுப்பு</button>
-    </form>
-    <div id="bthx"><p data-key="thx1">உங்கள் வாழ்த்துகளுக்கு நன்றி!</p><p data-key="thx2">இறைவன் அருள் உங்களுக்கும் கிடைக்கட்டும்</p></div>
   </div>
 </section>
 
@@ -753,16 +797,16 @@ body[data-lang="ta"] .sec-ttl{font-family:'Noto Serif Tamil',serif}
 const T={ta:{
 heroTag:'திருமண விழா',heroDeity:'ஸ்ரீ ஐயனாரப்பன் துணை · ஸ்ரீ பெரியாண்டிச்சி துணை',heroDay:'திங்கட்கிழமை',heroDate:'20 · ஏப்ரல் · 2026',heroTamilCal:'சித்திரை 7 · அக்ஷய திரிதியை · கார்த்திகை நட்சத்திரம் · சித்தயோகம்',scroll:'கீழே',
 coupleLabel:'மணமக்கள்',coupleTitle:'இரு உள்ளங்கள், ஒரு பயணம்',groomName:'S. ஜெய்சூர்யா B.E.',groomRole:'TATA Electronics, Hosur',groomParent:'திரு. R. சிவப்பிரகாசம் & Dr. T. பகுத்தறிவு அவர்களின் அன்பு மகன்',brideName:'Dr. S.R. மேகா BPT.',brideRole:'Salem Polyclinic (K.N. Rao Hospital), Salem',brideParent:'திரு. A.P. ராம்மூர்த்தி & திருமதி R. சங்கீதா அவர்களின் அன்பு மகள்',
-famLabel:'குடும்பத்தினர்',famTitle:'இரு குடும்பங்கள், ஒரு பந்தம்',famInvoke:'பெரியோர்களால் நிச்சயிக்கப்பட்டு நடைபெறும் இத்திருமண விழாவிற்கு தாங்களும் தங்கள் குடும்பத்தினருடன் வருகை தந்து மணமக்களை வாழ்த்தியருள அன்புடன் அழைக்கிறோம்.',groomSide:'மாப்பிள்ளை வீட்டார்',groomFather:'திரு. R. சிவப்பிரகாசம்',groomFatherQ:'M.Sc., PGDMM, Head-SCM, Valmet Eng. Chennai',groomFatherR:'தந்தை',groomMother:'Dr. T. பகுத்தறிவு',groomMotherQ:'M.Sc., M.Phil., Ph.D., Professor & Head, MGR College Hosur',groomMotherR:'தாய்',groomBro:'திரு. R. சரவணன்',groomBroQ:'B.Sc., MA., Prod.Manager, VB Medicare, Hosur',groomBroR:'அண்ணன்',groomSisInLaw:'திருமதி R. கவிதா',groomSisInLawQ:'M.Sc., B.Ed., Teacher, MVM, Hosur',groomSisInLawR:'அண்ணி',groomSis:'செல்வி S. ஜனனி ஶ்ரீ ',groomSisQ:'B.E., Specialist-SCM, Ather Energy, Hosur',groomSisR:'சகோதரி',groomBro2:'செல்வன் S. ஹரிணி ஶ்ரீ',groomBro2Q:'B.Tech.(CSE), Mysa Innovation, Bangalore',groomBro2R:'சகோதரன்',groomAddr:'📍 H-10 A, Phase-12, Old ASTC HUDCO, ஓசூர் - 635 109<br>📞 <a href="tel:+919994713491" style="color:var(--saffron-light);text-decoration:none">99947 13491</a>',brideSide:'பெண் வீட்டார்',brideFather:'திரு. A.P. ராம்மூர்த்தி',brideFatherQ:'Co.op.cell, BJP, பெத்தநாயக்கன்பாளையம்',brideFatherR:'தந்தை',brideMother:'திருமதி R. சங்கீதா',brideMotherR:'தாய்',brideBro:'திரு. D. சபரிசெல்வன்',brideBroQ:'தாய்மாமன் - AME (Aero)',brideAddr:'📍 பெத்தநாயக்கன்பாளையம்<br>📞 <a href="tel:+918925700185" style="color:var(--saffron-light);text-decoration:none">89257 00185</a> · <a href="tel:+919344470299" style="color:var(--saffron-light);text-decoration:none">93444 70299</a>',
+famLabel:'குடும்பத்தினர்',famTitle:'இரு குடும்பங்கள், ஒரு பந்தம்',famInvoke:'பெரியோர்களால் நிச்சயிக்கப்பட்டு நடைபெறும் இத்திருமண விழாவிற்கு தாங்களும் தங்கள் குடும்பத்தினருடன் வருகை தந்து மணமக்களை வாழ்த்தியருள அன்புடன் அழைக்கிறோம்.',groomSide:'மாப்பிள்ளை வீட்டார்',groomFather:'திரு. R. சிவப்பிரகாசம்',groomFatherQ:'M.Sc., PGDMM, Head-SCM, Valmet Eng. Chennai',groomFatherR:'தந்தை',groomMother:'Dr. T. பகுத்தறிவு',groomMotherQ:'M.Sc., M.Phil., Ph.D., Professor & Head, MGR College Hosur',groomMotherR:'தாய்',groomBro:'திரு. R. சரவணன்',groomBroQ:'B.Sc., MA., Prod.Manager, VB Medicare, Hosur',groomBroR:'அண்ணன்',groomSisInLaw:'திருமதி R. கவிதா',groomSisInLawQ:'M.Sc., B.Ed., Teacher, MVM, Hosur',groomSisInLawR:'அண்ணி',groomSis:'செல்வி S. ஜனனி ஶ்ரீ ',groomSisQ:'B.E., Specialist-SCM, Ather Energy, Hosur',groomSisR:'சகோதரி',groomBro2:'செல்வன் S. ஹரிணி ஶ்ரீ',groomBro2Q:'B.Tech.(CSE), Mysa Innovation, Bangalore',groomBro2R:'சகோதரன்',groomAddr:'📍 H-10 A, Phase-12, Old ASTC HUDCO, ஓசூர் - 635 109<br>📞 99947 13491',brideSide:'பெண் வீட்டார்',brideFather:'திரு. A.P. ராம்மூர்த்தி',brideFatherQ:'Co.op.cell, BJP, பெத்தநாயக்கன்பாளையம்',brideFatherR:'தந்தை',brideMother:'திருமதி R. சங்கீதா',brideMotherR:'தாய்',brideBro:'திரு. D. சபரிசெல்வன்',brideBroQ:'தாய்மாமன் - AME (Aero)',brideAddr:'📍 பெத்தநாயக்கன்பாளையம்<br>📞 89257 00185 · 93444 70299',
 evLabel:'நிகழ்ச்சி நிரல்',evTitle:'திருமண நிகழ்ச்சிகள்',evBody:'பாரம்பரிய சடங்குகள் மற்றும் மகிழ்ச்சியான கொண்டாட்டங்கள் வழியாக திருமணத்தின் புனிதமான பிணைப்பைக் கொண்டாட எங்களுடன் இணையுங்கள்.',muhName:'சுபமுஹூர்த்தம்',muhSub:'பிரம்ம முகூர்த்தம்',muhDate:'திங்கட்கிழமை, 20 ஏப்ரல் 2026 (சித்திரை 7)',muhTime:'அதிகாலை 4:30 — 6:00 மணி',muhVenue:'அருள்மிகு ஸ்ரீ முத்துமலை முருகன் தியான மண்டபம், ஏத்தாப்பூர்',recName:'வரவேற்பு & விருந்து',recSub:'வரவேற்பு விழா',recDate:'திங்கட்கிழமை, 20 ஏப்ரல் 2026',recTime:'காலை 11:00 — மதியம் 2:00 மணி',recVenue:'ஸ்ரீ பிச்சமுத்து நாயக்கர் திருமண மண்டபம், பெத்தநாயக்கன்பாளையம்',musicName:'இன்னிசை நிகழ்ச்சி',musicSub:'ராம் பிரதர்ஸ்',musicDesc:'ராம் பிரதர்ஸ்-ன் இன்னிசை நிகழ்ச்சி',musicVenue:'ஸ்ரீ பிச்சமுத்து நாயக்கர் திருமண மண்டபம், பெத்தநாயக்கன்பாளையம்',
-cdLabel:'எதிர்நோக்கி காத்திருக்கிறோம்',cdTitle:'மங்கல நாள்',cdDays:'நாட்கள்',cdHours:'மணி',cdMins:'நிமிடங்கள்',cdSecs:'வினாடிகள்',venLabel:'எங்களை சந்திக்க',venTitle:'நிகழ்வு இடங்கள்',v1T:'திருமண முஹூர்த்தம்',v1S:'Wedding Ceremony',v1A:'அருள்மிகு ஸ்ரீ முத்துமலை முருகன்<br>தியான மண்டபம்<br>ஏத்தாப்பூர்',v1Tm:'அதிகாலை 4:30 — 6:00 மணி (பிரம்ம முகூர்த்தம்)',v2T:'வரவேற்பு விழா',v2S:'Grand Reception',v2A:'ஸ்ரீ பிச்சமுத்து நாயக்கர்<br>திருமண மண்டபம்<br>பெத்தநாயக்கன்பாளையம்',v2Tm:'காலை 11:00 — மதியம் 2:00',contactTitle:'தொடர்புக்கு',
+cdLabel:'எதிர்நோக்கி காத்திருக்கிறோம்',cdTitle:'மங்கல நாள்',cdDays:'நாட்கள்',cdHours:'மணி',cdMins:'நிமிடங்கள்',cdSecs:'வினாடிகள்',venLabel:'எங்களை சந்திக்க',venTitle:'நிகழ்வு இடங்கள்',v1T:'திருமண முஹூர்த்தம்',v1S:'Wedding Ceremony',v1A:'அருள்மிகு ஸ்ரீ முத்துமலை முருகன்<br>தியான மண்டபம்<br>ஏத்தாப்பூர்',v1Tm:'அதிகாலை 4:30 — 6:00 மணி (பிரம்ம முகூர்த்தம்)',v2T:'வரவேற்பு விழா',v2S:'Grand Reception',v2A:'ஸ்ரீ பிச்சமுத்து நாயக்கர்<br>திருமண மண்டபம்<br>பெத்தநாயக்கன்பாளையம்',v2Tm:'காலை 11:00 — மதியம் 2:00',mapBtn1:'வழிகாட்டி',mapBtn2:'வழிகாட்டி',contactTitle:'தொடர்புக்கு',
 blLabel:'உங்கள் அன்பைப் பகிருங்கள்',blTitle:'உங்கள் வாழ்த்துகளை அனுப்புங்கள்',blBody:'உங்கள் வருகையே மிகப்பெரிய பரிசு. புதிய பயணத்தைத் தொடங்கும் தம்பதியருக்கு உங்கள் வாழ்த்துகளை தெரிவியுங்கள்.',fName:'உங்கள் பெயர்',fNamePh:'உங்கள் பெயரை உள்ளிடுங்கள்',fMsg:'உங்கள் வாழ்த்துகள்',fMsgPh:'உங்கள் வாழ்த்துகளை எழுதுங்கள்...',fBtn:'வாழ்த்துகளை அனுப்பு',thx1:'உங்கள் வாழ்த்துகளுக்கு நன்றி!',thx2:'இறைவன் அருள் உங்களுக்கும் கிடைக்கட்டும்',ftTag:'அன்புடனும் ஆசிகளுடனும்',ftFam:'ஜெய்சூர்யா & மேகா குடும்பங்கள்'},
 en:{
 heroTag:'WEDDING CELEBRATION',heroDeity:'Sri Ayyanarappan Thunai · Sri Periyandichchi Thunai',heroDay:'Monday',heroDate:'20 · April · 2026',heroTamilCal:'Chithirai 7 · Akshaya Tritiyai · Karthigai Nakshatram · Siddhayogam',scroll:'Scroll',
 coupleLabel:'The Couple',coupleTitle:'Two Souls, One Journey',groomName:'S. Jaisurya B.E.',groomRole:'TATA Electronics, Hosur',groomParent:'Beloved son of Mr. R. Sivaprakasam & Dr. T. Pakutharivu',brideName:'Dr. S.R. Meaga BPT.',brideRole:'Salem Polyclinic (K.N. Rao Hospital), Salem',brideParent:'Beloved daughter of Mr. A.P. Rammoorthy & Mrs. R. Sangeetha',
-famLabel:'Family',famTitle:'Two Families, One Bond',famInvoke:'With the blessings of our elders and the good wishes of our relatives and friends, we cordially invite you and your family to attend and bless the couple at this auspicious wedding celebration.',groomSide:'Groom\'s Family',groomFather:'Mr. R. Sivaprakasam',groomFatherQ:'M.Sc., PGDMM, Head-SCM, Valmet Eng. Chennai',groomFatherR:'Father',groomMother:'Dr. T. Pakutharivu',groomMotherQ:'M.Sc., M.Phil., Ph.D., Professor & Head, MGR College Hosur',groomMotherR:'Mother',groomBro:'Mr. R. Saravanan',groomBroQ:'B.Sc., MA., Prod.Manager, VB Medicare, Hosur',groomBroR:'Elder Brother',groomSisInLaw:'Mrs. R. Kavitha',groomSisInLawQ:'M.Sc., B.Ed., Teacher, MVM, Hosur',groomSisInLawR:'Sister-in-Law',groomSis:'Ms. S. Janani Sri',groomSisQ:'B.E., Specialist-SCM, Ather Energy, Hosur',groomSisR:'Sister',groomBro2:'Mr. S. Harini Sri',groomBro2Q:'B.Tech.(CSE), Mysa Innovation, Bangalore',groomBro2R:'Brother',groomAddr:'📍 H-10 A, Phase-12, Old ASTC HUDCO, Hosur - 635 109<br>📞 <a href="tel:+919994713491" style="color:var(--saffron-light);text-decoration:none">99947 13491</a>',brideSide:'Bride\'s Family',brideFather:'Mr. A.P. Rammoorthy',brideFatherQ:'Co.op.cell, BJP, Pethanayakanpalayam',brideFatherR:'Father',brideMother:'Mrs. R. Sangeetha',brideMotherR:'Mother',brideBro:'Mr. D. Sabari Selvan',brideBroQ:'தாய்மாமன் - AME (Aero)',brideAddr:'📍 Pethanayakanpalayam<br>📞 <a href="tel:+918925700185" style="color:var(--saffron-light);text-decoration:none">89257 00185</a> · <a href="tel:+919344470299" style="color:var(--saffron-light);text-decoration:none">93444 70299</a>',
+famLabel:'Family',famTitle:'Two Families, One Bond',famInvoke:'With the blessings of our elders and the good wishes of our relatives and friends, we cordially invite you and your family to attend and bless the couple at this auspicious wedding celebration.',groomSide:'Groom\'s Family',groomFather:'Mr. R. Sivaprakasam',groomFatherQ:'M.Sc., PGDMM, Head-SCM, Valmet Eng. Chennai',groomFatherR:'Father',groomMother:'Dr. T. Pakutharivu',groomMotherQ:'M.Sc., M.Phil., Ph.D., Professor & Head, MGR College Hosur',groomMotherR:'Mother',groomBro:'Mr. R. Saravanan',groomBroQ:'B.Sc., MA., Prod.Manager, VB Medicare, Hosur',groomBroR:'Elder Brother',groomSisInLaw:'Mrs. R. Kavitha',groomSisInLawQ:'M.Sc., B.Ed., Teacher, MVM, Hosur',groomSisInLawR:'Sister-in-Law',groomSis:'Ms. S. Janani Sri',groomSisQ:'B.E., Specialist-SCM, Ather Energy, Hosur',groomSisR:'Sister',groomBro2:'Mr. S. Harini Sri',groomBro2Q:'B.Tech.(CSE), Mysa Innovation, Bangalore',groomBro2R:'Brother',groomAddr:'📍 H-10 A, Phase-12, Old ASTC HUDCO, Hosur - 635 109<br>📞 99947 13491',brideSide:'Bride\'s Family',brideFather:'Mr. A.P. Rammoorthy',brideFatherQ:'Co.op.cell, BJP, Pethanayakanpalayam',brideFatherR:'Father',brideMother:'Mrs. R. Sangeetha',brideMotherR:'Mother',brideBro:'Mr. D. Sabari Selvan',brideBroQ:'தாய்மாமன் - AME (Aero)',brideAddr:'📍 Pethanayakanpalayam<br>📞 89257 00185 · 93444 70299',
 evLabel:'Event Schedule',evTitle:'Wedding Events',evBody:'Join us as we celebrate the sacred bond of marriage through traditional ceremonies and joyful festivities.',muhName:'Subhamuhurtham',muhSub:'Brahma Muhurtham',muhDate:'Monday, 20th April 2026 (Chithirai 7)',muhTime:'4:30 AM — 6:00 AM',muhVenue:'Arulmigu Sri Muthumalai Murugan Dhyana Mandapam, Ethapur',recName:'Reception & Feast',recSub:'Grand Celebration',recDate:'Monday, 20th April 2026',recTime:'11:00 AM — 2:00 PM',recVenue:'Sri Pichamuthu Nayakkar Thirumana Mandapam, Pethanayakanpalayam',musicName:'Musical Program',musicSub:'Ram Brothers',musicDesc:'Ram Brothers Musical Concert',musicVenue:'Sri Pichamuthu Nayakkar Thirumana Mandapam, Pethanayakanpalayam',
-cdLabel:'Counting Down To',cdTitle:'The Big Day',cdDays:'Days',cdHours:'Hours',cdMins:'Minutes',cdSecs:'Seconds',venLabel:'Where To Find Us',venTitle:'Venue Details',v1T:'Wedding Ceremony',v1S:'திருமண முஹூர்த்தம்',v1A:'Arulmigu Sri Muthumalai Murugan<br>Dhyana Mandapam<br>Ethapur',v1Tm:'4:30 — 6:00 AM (Brahma Muhurtham)',v2T:'Grand Reception',v2S:'வரவேற்பு விழா',v2A:'Sri Pichamuthu Nayakkar<br>Thirumana Mandapam<br>Pethanayakanpalayam',v2Tm:'11:00 AM — 2:00 PM',contactTitle:'Contact Us',
+cdLabel:'Counting Down To',cdTitle:'The Big Day',cdDays:'Days',cdHours:'Hours',cdMins:'Minutes',cdSecs:'Seconds',venLabel:'Where To Find Us',venTitle:'Venue Details',v1T:'Wedding Ceremony',v1S:'திருமண முஹூர்த்தம்',v1A:'Arulmigu Sri Muthumalai Murugan<br>Dhyana Mandapam<br>Ethapur',v1Tm:'4:30 — 6:00 AM (Brahma Muhurtham)',v2T:'Grand Reception',v2S:'வரவேற்பு விழா',v2A:'Sri Pichamuthu Nayakkar<br>Thirumana Mandapam<br>Pethanayakanpalayam',v2Tm:'11:00 AM — 2:00 PM',mapBtn1:'Get Directions',mapBtn2:'Get Directions',contactTitle:'Contact Us',
 blLabel:'Share Your Love',blTitle:'Send Your Blessings',blBody:'Your presence is the greatest gift. Leave your warm wishes for the couple as they begin their new journey together.',fName:'Your Name',fNamePh:'Enter your name',fMsg:'Your Blessings',fMsgPh:'Write your heartfelt wishes...',fBtn:'Send Blessings',thx1:'Thank you for your blessings!',thx2:'May divine grace be with you too',ftTag:'With Love & Blessings',ftFam:'The Jaisurya & Meaga Families'}};
 
 function setLang(l){
@@ -774,39 +818,103 @@ function setLang(l){
   document.querySelectorAll('[data-key-ph]').forEach(e=>{const k=e.getAttribute('data-key-ph');if(t[k]!==undefined)e.placeholder=t[k]});
 }
 
+// ===== STORY NAVIGATION =====
+const stSlides=document.querySelectorAll('section,.footer');
+const stTotal=stSlides.length;
+let stCur=0,stLock=false;
+
+// Init: reveal all elements, activate first slide
+document.querySelectorAll('.rv').forEach(e=>e.classList.add('vis'));
+stSlides[0].classList.add('active-slide');
+stUpdateBars();
+
+function stGo(idx){
+  if(stLock||idx<0||idx>=stTotal||idx===stCur)return;
+  stLock=true;
+  const old=stSlides[stCur],nw=stSlides[idx],fwd=idx>stCur;
+  nw.style.transition='none';
+  nw.style.transform=fwd?'translateX(100%)':'translateX(-100%)';
+  nw.classList.add('active-slide');
+  void nw.offsetHeight;
+  nw.style.transition='transform .4s cubic-bezier(.4,0,.2,1)';
+  old.style.transition='transform .4s cubic-bezier(.4,0,.2,1)';
+  nw.style.transform='translateX(0)';
+  old.style.transform=fwd?'translateX(-30%)':'translateX(100%)';
+  setTimeout(()=>{
+    old.classList.remove('active-slide');
+    old.style.transform='';old.style.transition='';
+    nw.style.transition='';nw.style.transform='';
+    stCur=idx;stUpdateBars();stLock=false;nw.scrollTop=0;
+  },420);
+}
+
+function stUpdateBars(){
+  document.querySelectorAll('.story-bar').forEach((b,i)=>{
+    b.classList.remove('done','active');
+    if(i<stCur)b.classList.add('done');
+    else if(i===stCur)b.classList.add('active');
+  });
+}
+
+// Touch/swipe
+let stTx=0,stTy=0,stTt=0;
+document.addEventListener('touchstart',e=>{stTx=e.touches[0].clientX;stTy=e.touches[0].clientY;stTt=Date.now()},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-stTx,dy=e.changedTouches[0].clientY-stTy;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5&&Date.now()-stTt<500){dx<0?stGo(stCur+1):stGo(stCur-1)}
+},{passive:true});
+
+// Tap navigation (left 35% = prev, right 35% = next)
+document.addEventListener('click',e=>{
+  if(e.target.closest('a,button,input,textarea,.lang-toggle,.story-progress,.music-btn'))return;
+  const x=e.clientX,w=window.innerWidth;
+  if(x>w*.65)stGo(stCur+1);else if(x<w*.35)stGo(stCur-1);
+});
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')stGo(stCur+1);
+  else if(e.key==='ArrowLeft')stGo(stCur-1);
+});
+
+// Progress bar clicks
+document.querySelectorAll('.story-bar').forEach((b,i)=>{b.addEventListener('click',e=>{e.stopPropagation();stGo(i)})});
+
+// ===== BACKGROUND MUSIC =====
+const bgMusic=document.getElementById('bgMusic');
+const musicBtn=document.getElementById('musicBtn');
+let musicPlaying=false;
+
+function tryPlayMusic(){
+  bgMusic.volume=0.4;
+  bgMusic.play().then(()=>{musicPlaying=true;musicBtn.classList.add('playing')}).catch(()=>{});
+}
+
+musicBtn.addEventListener('click',e=>{
+  e.stopPropagation();
+  if(musicPlaying){bgMusic.pause();musicPlaying=false;musicBtn.classList.remove('playing')}
+  else{bgMusic.play().then(()=>{musicPlaying=true;musicBtn.classList.add('playing')}).catch(()=>{})}
+});
+
+// Try autoplay immediately
+tryPlayMusic();
+// Fallback: play on first user interaction (browsers often require gesture)
+function musicOnGesture(){if(!musicPlaying){tryPlayMusic()}document.removeEventListener('click',musicOnGesture);document.removeEventListener('touchstart',musicOnGesture)}
+document.addEventListener('click',musicOnGesture);
+document.addEventListener('touchstart',musicOnGesture);
+
 // ===== GRAND OPENING SEQUENCE =====
 window.addEventListener('load',()=>{
-  // 1. Loader fades at 2.5s
   setTimeout(()=>document.getElementById('loader').classList.add('hidden'),2500);
-  // 2. Curtains open at 3s
-  setTimeout(()=>{
-    document.getElementById('cL').classList.add('open');
-    document.getElementById('cR').classList.add('open');
-  },3000);
-  // 3. Show UI elements after curtains open
+  setTimeout(()=>{document.getElementById('cL').classList.add('open');document.getElementById('cR').classList.add('open')},3000);
   setTimeout(()=>{
     document.getElementById('langTog').classList.add('show');
-    document.getElementById('sideNav').classList.add('show');
-    // Hero text animations are CSS-timed from 3.3s+
-    // Start hero-om and hero-tag
+    musicBtn.classList.add('show');
     document.querySelector('.hero-om').style.animation='fadeUp .6s ease forwards';
     document.querySelector('.hero-tag').style.animation='fadeUp .6s ease .2s forwards';
   },3800);
-  // 4. Remove curtains from DOM
-  setTimeout(()=>{
-    document.getElementById('cL').style.display='none';
-    document.getElementById('cR').style.display='none';
-  },5000);
+  setTimeout(()=>{document.getElementById('cL').style.display='none';document.getElementById('cR').style.display='none'},5000);
 });
-
-// ===== SCROLL REVEAL =====
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.1,rootMargin:'0px 0px -25px 0px'});
-document.querySelectorAll('.rv').forEach(e=>obs.observe(e));
-
-// ===== SIDE NAV =====
-const secs=document.querySelectorAll('section[id]');const dots=document.querySelectorAll('.side-nav a');
-const navObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){dots.forEach(d=>d.classList.remove('active'));const a=document.querySelector('.side-nav a[href="#'+e.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:.25});
-secs.forEach(s=>navObs.observe(s));
 
 // ===== COUNTDOWN =====
 const tgt=new Date('2026-04-20T04:30:00+05:30').getTime();
@@ -875,11 +983,7 @@ function mkSparkles(){
 }
 setTimeout(mkSparkles,4000);
 
-// ===== BLESSINGS =====
-function handleBless(e){e.preventDefault();e.target.style.display='none';document.getElementById('bthx').style.display='block'}
 
-// ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 </script>
 </body>
 </html>
