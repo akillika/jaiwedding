@@ -152,8 +152,8 @@ body[data-lang="en"]{font-family:'Spectral',Georgia,serif}
 @keyframes auraPulse{0%{opacity:.5;transform:translate(-50%,-50%) scale(1)}100%{opacity:.8;transform:translate(-50%,-50%) scale(1.15)}}
 
 .hero-names{position:relative;margin-bottom:8px}
-.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,9.5vw,7rem);font-weight:900;
-  font-style:italic;line-height:1.05;
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,9.5vw,7rem);font-weight:900;line-height:1.15;
+  padding-bottom:4px;
   background:linear-gradient(120deg,var(--saffron) 0%,var(--saffron) 35%,#FFD700 50%,var(--saffron) 65%,var(--saffron) 100%);
   background-size:250% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0}
 .hero-name.n1{animation:nameIn 1.2s cubic-bezier(.22,1,.36,1) 3.5s forwards,shimmer 5s ease-in-out 5s infinite}
@@ -574,7 +574,6 @@ section.hero{overflow:hidden}
   </svg>
 
   <div class="hero-content">
-    <div class="hero-om">&#2958;</div>
     <div class="hero-tag" data-key="heroTag">திருமண விழா</div>
     <div class="hero-deity" data-key="heroDeity">ஸ்ரீ ஐயனாரப்பன் துணை · ஸ்ரீ பெரியாண்டிச்சி துணை</div>
     <div class="hero-names">
@@ -910,8 +909,7 @@ window.addEventListener('load',()=>{
   setTimeout(()=>{
     document.getElementById('langTog').classList.add('show');
     musicBtn.classList.add('show');
-    document.querySelector('.hero-om').style.animation='fadeUp .6s ease forwards';
-    document.querySelector('.hero-tag').style.animation='fadeUp .6s ease .2s forwards';
+    document.querySelector('.hero-tag').style.animation='fadeUp .6s ease forwards';
   },3800);
   setTimeout(()=>{document.getElementById('cL').style.display='none';document.getElementById('cR').style.display='none'},5000);
 });
